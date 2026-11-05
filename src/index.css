@@ -45,3 +45,34 @@ body {
   background: var(--leather-light);
   border-radius: 8px;
 }
+
+/* Mood slider: the native range input is invisible and only supplies
+   dragging, keyboard and touch behaviour; the face is drawn in React. */
+.mood-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  margin: 0;
+  opacity: 0;
+  touch-action: pan-y;
+}
+.mood-range::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 52px;
+}
+.mood-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 52px;
+  height: 52px;
+}
+.mood-range::-moz-range-track {
+  background: transparent;
+  height: 52px;
+}
+.mood-range::-moz-range-thumb {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  background: transparent;
+}

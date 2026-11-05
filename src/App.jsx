@@ -12,19 +12,21 @@ const NAME = import.meta.env.VITE_DIARY_NAME || "Friend";
 export default function App() {
   const [themeIndex, setThemeIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState(() => new Date());
-  const { saveEntry, getEntry, hasEntry, authenticated, loading, unlock } = useDiary();
+  const { updateEntry, getEntry, hasEntry, authenticated, loading, unlock } = useDiary();
   const diaryRef = useRef(null);
 
   const backdrop = COVER_THEMES[themeIndex].bg;
 
   const dateKey = toDateKey(selectedDate);
-  const things = getEntry(dateKey);
+  const { things, mood } = getEntry(dateKey);
 
   const handleChange = (index, value) => {
     const next = [...things];
     next[index] = value;
-    saveEntry(dateKey, next);
+    updateEntry(dateKey, { things: next });
   };
+
+  const handleMood = (value) => updateEntry(dateKey, { mood: value });
 
   const shiftDay = (delta) => {
     setSelectedDate((d) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + delta));
@@ -65,7 +67,9 @@ export default function App() {
         <DiaryPage
           date={selectedDate}
           things={things}
+          mood={mood}
           onChange={handleChange}
+          onMoodChange={handleMood}
           onPrevDay={() => shiftDay(-1)}
           onNextDay={() => shiftDay(1)}
           backdrop={backdrop}

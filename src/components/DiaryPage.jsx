@@ -1,14 +1,15 @@
 import { StickerBlobGreen, StickerBlobPurple, StickerHeart } from "./Stickers";
+import MoodSlider from "./MoodSlider";
 import { formatLongDate, isSameDay } from "../lib/date";
 
 const ROW_ICONS = [StickerBlobGreen, StickerBlobPurple, StickerHeart];
 
-export default function DiaryPage({ date, things, onChange, onPrevDay, onNextDay, backdrop }) {
+export default function DiaryPage({ date, things, mood, onChange, onMoodChange, onPrevDay, onNextDay, backdrop }) {
   const today = isSameDay(date, new Date());
 
   return (
     <section
-      className="min-h-screen w-full flex items-center justify-center px-4 py-16 transition-colors duration-300"
+      className="min-h-screen w-full flex flex-col items-center justify-center gap-6 px-4 py-10 transition-colors duration-300"
       style={{ backgroundColor: backdrop }}
     >
       <div className="w-full max-w-2xl rounded-[24px] bg-[var(--page)] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.35)] px-6 sm:px-12 py-10 sm:py-14">
@@ -56,6 +57,8 @@ export default function DiaryPage({ date, things, onChange, onPrevDay, onNextDay
           })}
         </div>
       </div>
+
+      <MoodSlider mood={mood} onChange={onMoodChange} />
     </section>
   );
 }
